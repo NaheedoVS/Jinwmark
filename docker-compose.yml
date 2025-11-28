@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  telegram-bot-api:
+    image: aiogram/telegram-bot-api:latest
+    container_name: telegram-api-server
+    environment:
+      - TELEGRAM_API_ID=YOUR_API_ID        # Get from my.telegram.org
+      - TELEGRAM_API_HASH=YOUR_API_HASH    # Get from my.telegram.org
+      - TELEGRAM_LOCAL=true
+    volumes:
+      - ./telegram-data:/var/lib/telegram-bot-api
+    ports:
+      - "8081:8081"
+    restart: always
+
+  watermark-bot:
+    build: .
+    container_name: watermark-bot
+    restart: always
+    environment:
+      - BOT_TOKEN=YOUR_BOT_TOKEN
+      # Point to the service name 'telegram-bot-api' defined above
+      - BASE_URL=http://telegram-bot-api:8081/bot
+    volumes:
+      # Map the SAME folder so the bot can read files downloaded by the API server
+      - ./telegram-data:/var/lib/telegram-bot-api
+    depends_on:
+      - telegram-bot-api
