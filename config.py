@@ -21,7 +21,7 @@ class Config:
     DB_FILE = "user_data.json"
     
     # Watermark Settings
-    DEFAULT_WATERMARK = "@WatermarkedBot"
+    DEFAULT_WATERMARK = "Pglinsan"
     FONT_SIZE = 36
     OPACITY = 128
     MARGIN_X = 20
