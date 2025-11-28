@@ -7,14 +7,14 @@ class Config:
     # On Heroku, we read these from the "Config Vars" settings
     BOT_TOKEN = os.getenv("BOT_TOKEN")
     
-    # Standard Telegram API URL
-    BASE_URL = os.getenv("BASE_URL", "https://api.telegram.org/bot")
+    # Prioritize local Bot API; no HTTPS fallback
+    BASE_URL = os.getenv("BASE_URL") or "http://telegram-bot-api:8081/bot"
     
-    # Heroku has tight storage limits, so we stick to standard API limits (20MB)
+    # Increased for 2GB support
     MAX_FILE_SIZE_MB = 2000
     
-    # Processing Timeouts
-    TIMEOUT = 12000
+    # Processing Timeouts (increased for large files)
+    TIMEOUT = 3000  # 50 minutes
     
     # JSON DB (Note: On Heroku free tier, this file clears when the dyno restarts. 
     # For permanent storage on Heroku, you would typically need a Postgres database)
