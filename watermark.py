@@ -61,12 +61,13 @@ def process_video(input_video: str, output_video: str, watermark_img: str):
         in_file = ffmpeg.input(input_video)
         overlay_file = ffmpeg.input(watermark_img)
 
-        # Fix aspect ratio to prevent distortion
-        video = in_file.video.filter('scale', f'iw*sar:ih').filter('setsar', '1').overlay(
-            overlay_file, 
-            x=f"main_w-overlay_w-{Config.MARGIN_X}", 
-            y=f"main_h-overlay_h-{Config.MARGIN_Y}"
-        )
+        # Fix aspect ratio: Split scale params to avoid colon escaping
+        video = (in_file.video
+                 .filter('scale', w='iw*sar', h='ih')  # Separate w/h kwargs fix escaping
+                 .filter('setsar', '1')
+                 .overlay(overlay_file, 
+                          x=f"main_w-overlay_w-{Config.MARGIN_X}", 
+                          y=f"main_h-overlay_h-{Config.MARGIN_Y}"))
 
         output_args = {
             'vcodec': 'libx264',
