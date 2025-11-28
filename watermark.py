@@ -37,7 +37,7 @@ def create_text_watermark(text: str, output_path: str, color: str = "white"):
         img = Image.new('RGBA', (width, height), (255, 255, 255, 0))
         draw = ImageDraw.Draw(img)
         rgb_color = get_color_rgb(color)
-        draw.text((15, 15), text, font=font, fill=(*rgb_color, Config.OPACITY)))
+        draw.text((15, 15), text, font=font, fill=(*rgb_color, Config.OPACITY))
 
         img.save(output_path, "PNG")
         return True
