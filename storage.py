@@ -25,10 +25,27 @@ class Storage:
             pass
 
     def set_watermark(self, user_id: int, text: str):
-        self._data[str(user_id)] = text
+        key = str(user_id)
+        if key not in self._data:
+            self._data[key] = {}
+        self._data[key]["text"] = text
         self._save()
 
-    def get_watermark(self, user_id: int) -> str:
-        return self._data.get(str(user_id), Config.DEFAULT_WATERMARK)
+    def set_color(self, user_id: int, color: str):
+        key = str(user_id)
+        if key not in self._data:
+            self._data[key] = {}
+        self._data[key]["color"] = color
+        self._save()
+
+    def get_user_data(self, user_id: int) -> dict:
+        key = str(user_id)
+        if key not in self._data:
+            self._data[key] = {
+                "text": Config.DEFAULT_WATERMARK,
+                "color": "white"  # Default color
+            }
+            self._save()
+        return self._data[key]
 
 db = Storage()
