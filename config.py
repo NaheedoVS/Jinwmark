@@ -11,10 +11,10 @@ class Config:
     BASE_URL = os.getenv("BASE_URL", "https://api.telegram.org/bot")
     
     # Heroku has tight storage limits, so we stick to standard API limits (20MB)
-    MAX_FILE_SIZE_MB = 20
+    MAX_FILE_SIZE_MB = 2000
     
     # Processing Timeouts
-    TIMEOUT = 120
+    TIMEOUT = 1200
     
     # JSON DB (Note: On Heroku free tier, this file clears when the dyno restarts. 
     # For permanent storage on Heroku, you would typically need a Postgres database)
