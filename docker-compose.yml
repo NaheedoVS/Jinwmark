@@ -5,8 +5,8 @@ services:
     image: aiogram/telegram-bot-api:latest
     container_name: telegram-api-server
     environment:
-      - TELEGRAM_API_ID=YOUR_API_ID        # Get from my.telegram.org
-      - TELEGRAM_API_HASH=YOUR_API_HASH    # Get from my.telegram.org
+      - TELEGRAM_API_ID=REPLACE_WITH_YOUR_API_ID        # Get from my.telegram.org
+      - TELEGRAM_API_HASH=REPLACE_WITH_YOUR_API_HASH    # Get from my.telegram.org
       - TELEGRAM_LOCAL=true
     volumes:
       - ./telegram-data:/var/lib/telegram-bot-api
@@ -19,7 +19,7 @@ services:
     container_name: watermark-bot
     restart: always
     environment:
-      - BOT_TOKEN=YOUR_BOT_TOKEN
+      - BOT_TOKEN=REPLACE_WITH_YOUR_BOT_TOKEN
       # Point to the service name 'telegram-bot-api' defined above
       - BASE_URL=http://telegram-bot-api:8081/bot
     volumes:
@@ -27,3 +27,8 @@ services:
       - ./telegram-data:/var/lib/telegram-bot-api
     depends_on:
       - telegram-bot-api
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+          cpus: '4.0'
