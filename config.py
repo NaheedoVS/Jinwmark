@@ -14,7 +14,7 @@ class Config:
     MAX_FILE_SIZE_MB = 2000
     
     # Processing Timeouts
-    TIMEOUT = 1200
+    TIMEOUT = 12000
     
     # JSON DB (Note: On Heroku free tier, this file clears when the dyno restarts. 
     # For permanent storage on Heroku, you would typically need a Postgres database)
